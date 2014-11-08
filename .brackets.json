@@ -1,6 +1,7 @@
 {
     "jscodehints.detectedExclusions": [
         "C:/SkillsDB/public/javascripts/angular.min.js",
-        "C:/SkillsDB/app/controllers/profile.js"
+        "C:/SkillsDB/app/controllers/profile.js",
+        "C:/SkillsDB/public/javascripts/skillsdb.js"
     ]
 }

@@ -1,12 +1,9 @@
-modal.fade(tabindex="-1", role="dialog", aria-labelledby="projectPopupProjectName", aria-hidden="true")
-    modal-dialog
-        modal-content
-            modal-header
-                button.close(data-dismiss="modal")
-                    span(aria-hidden="true") &times;
-                    span.sr-only
-                        Close
-                h4#projectPopupProjectName.modal-title Project Name
-            modal-body
-            
-                
+.modal-header
+  h4.modal-title Add Project
+.modal-body
+  ul
+    li(ng-repeat='item in items')
+      a(ng-click='selected.item = item') {{ item }}
+  | Selected:
+  b {{ selected.item }}
+.modal-footer

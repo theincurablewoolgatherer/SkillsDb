@@ -55,13 +55,22 @@ updateProfile = function(req, res) {
 
 // Create Profile
 createProfile = function(req, res) {
-
+    //TODO
 }
+
+showProfilePage = function (req, res) {
+  if(req.isAuthenticated())
+        res.render('partials/profile',{ title : 'Home' });
+    else
+        res.redirect("/");    
+}
+
 //========================================================
 // II. Controller URL to Action mapping
 //========================================================
 app.get('/:id', getProfile);
 app.put('/:id', updateProfile);
+app.get('/', showProfilePage);
 app.post('/', createProfile);
 
 module.exports = app;

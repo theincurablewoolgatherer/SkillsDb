@@ -12,8 +12,12 @@ var auth = function(req, res, next){
 };
 
 app.get('/', function(req, res){
-    res.render('index', { title: 'SkillsDB' });
-    //res.redirect("/#/profile");
+    //res.render('index', { title: 'SkillsDB' });
+    if(req.isAuthenticated())
+        res.redirect("/profile");
+    else
+         res.render('partials/login');
+    
 });
 
 /*
@@ -49,5 +53,7 @@ app.get('/partials/:name', function (req, res)
 app.get('*', function(req, res){
     res.redirect("/");
 });
+
+
 
 module.exports = app;

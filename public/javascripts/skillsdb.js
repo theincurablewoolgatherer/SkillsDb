@@ -2,7 +2,7 @@
  * Angular Application
  **********************************************************************/
 var skillsdb = angular.module('skillsdb', ['ngResource', 'xeditable', 'ui.bootstrap'])
-    .config(function ($routeProvider, $locationProvider, $httpProvider) {
+    .config(function ($locationProvider, $httpProvider) {
         //================================================
         // Check if the user is connected
         //================================================
@@ -51,34 +51,7 @@ var skillsdb = angular.module('skillsdb', ['ngResource', 'xeditable', 'ui.bootst
         });
         //================================================
 
-        //================================================
-        // Define all the routes
-        //================================================
-        $routeProvider
-        // .when('/', {
-        //   templateUrl: '/partials/main'
-        // })
-        .when('/', {
-            templateUrl: '/partials/profile',
-            controller: 'ProfileCtrl',
-            resolve: {
-                loggedin: checkLoggedin
-            }
-        })
-            .when('/profile', {
-                templateUrl: '/partials/profile',
-                controller: 'ProfileCtrl',
-                resolve: {
-                    loggedin: checkLoggedin
-                }
-            })
-            .when('/login', {
-                templateUrl: '/partials/login',
-                controller: 'LoginCtrl'
-            })
-            .otherwise({
-                redirectTo: '/'
-            });
+
         //================================================
 
     }) // end of config()
@@ -91,18 +64,6 @@ var skillsdb = angular.module('skillsdb', ['ngResource', 'xeditable', 'ui.bootst
             $rootScope.message = 'Logged out.';
             $http.post('/logout');
         };
-    }).directive('showProjectModal', function (){
-        return {
-            link: function (scope, element, attrs) {
-                function showModal() {
-                    var modalDomElement = angular.element('#projectModal');
-                    var ctrl = element.controller();
-                    
-                    element.modal('show');
-                }
-                element.bind('click', showModal);
-            }
-        }
     });
 /**********************************************************************
 * Constants
@@ -142,12 +103,13 @@ skillsdb.controller('LoginCtrl', function ($scope, $rootScope, $http, $location)
             .success(function (user) {
                 // No error: authentication OK
                 $rootScope.message = 'Authentication successful!';
-                $location.url('/profile');
+                window.location.href = "/profile";
+                //$http.get('/profile');
             })
             .error(function () {
                 // Error: authentication failed
                 $rootScope.message = 'Authentication failed.';
-                $location.url('/login');
+                $location.get('/login');
             });
     };
 });
@@ -156,7 +118,6 @@ skillsdb.controller('LoginCtrl', function ($scope, $rootScope, $http, $location)
 * Profile controller
 **********************************************************************/
 skillsdb.controller('ProfileCtrl', function($scope, $http, FIELD_CONSTANTS) {
-    
   $scope.departments = FIELD_CONSTANTS.DEPARTMENTS;
   $scope.ranks = FIELD_CONSTANTS.RANKS;
   $scope.positions = FIELD_CONSTANTS.POSITIONS;
@@ -186,6 +147,7 @@ skillsdb.controller('ProfileCtrl', function($scope, $http, FIELD_CONSTANTS) {
   $scope.save = function(){
     $http.put('/profile/'+$scope.user._id, $scope.user);
   };
+    
   // Save Rank
   $scope.saveRank = function(){
     $scope.user.position = $scope.positions[$scope.rankId].position;
@@ -195,13 +157,14 @@ skillsdb.controller('ProfileCtrl', function($scope, $http, FIELD_CONSTANTS) {
 });
 
 
-
-
+/**********************************************************************
+* Projects controller
+**********************************************************************/
 skillsdb.controller('ProjectsCtrl', function ($scope, $modal, $log) {
-  $scope.showProjectForm = function () {
- $scope.items = ['item1', 'item2', 'item3'];
+    $scope.showProjectForm = function () {
+    $scope.items = ['item1', 'item2', 'item3'];
     var modalInstance = $modal.open({
-      templateUrl: '/partials/projectPopup',
+      templateUrl: 'partials/projectPopUp',
       controller: 'ProjectFormCtrl',
       resolve: {
         items: function () {
@@ -213,13 +176,12 @@ skillsdb.controller('ProjectsCtrl', function ($scope, $modal, $log) {
 });
 
 skillsdb.controller('ProjectFormCtrl', function ($scope, $modalInstance, items) {
-
   $scope.items = items;
-
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
 });
+
 /**********************************************************************
 * Custom Directives
 **********************************************************************/

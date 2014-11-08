@@ -73,8 +73,7 @@ author: bootply.com
 }
 .well,
 .panel {
-    border-color: #d2d2d2;
-    box-shadow: 0 1px 0 #cfcfcf;
+    box-shadow: 0 1px 0 #DDDDDD;
     border-radius: 3px;
 }
 .btn-success,
@@ -91,7 +90,7 @@ author: bootply.com
 .btn-danger,
 .label-danger,
 .progress-bar-danger {
-    background-color: #dd4b39;
+    background-color: #d73d32;
 }
 .btn-warning,
 .label-warning,
@@ -138,12 +137,13 @@ textarea {
 .list-group-item:last-child {
     border-radius: 0;
 }
+h1,h2,
 h3,
 h4,
 h5 {
-    border: 0 solid #efefef;
-    border-bottom-width: 1px;
-    padding-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+
 }
 .modal-dialog {
     width: 450px;
@@ -210,24 +210,47 @@ h5 {
 .profile {
     padding-top: 3%;
 }
-.user-photo {
+.profile-panel .col-lg-8{
+ padding-left: 4px;
+}
+.profile-photo {
+    -webkit-filter: grayscale(80%);
+    -moz-filter: grayscale(80%);
+    filter: grayscale(80%);
+    width: 125px;
+    height: 100%;
+    min-height: 135px;
+    display: block;
+    border-radius: 3px 0px 0px 3px;
+    background-size: cover !important;
     background-repeat: no-repeat;
     background-attachment: absolute;
     background-position: center center;
-    background-size: 100%;
 }
-.profile-panel .glyphicon {
-    font-size: 11px !important;
+.edit-glyph {
+    font-size: 10px !important;
+    float: right;
+    margin: 4px 10px 0px 15px;
+    cursor: pointer;
+    
 }
-.about-name h4 {
-    margin-bottom: 2px;
+.about-name .fullname{
+    font-size: 23px;
+    max-width: 84%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    -o-text-overflow: ellipsis;  
+    font-family: 'Roboto';
+    font-weight: 300;
 }
 .about-rank,
 .about-department {
-    font-size: 14px;
+    font-size: 15px;
 }
 .about-current-value {
-    font-size: 12px;
+    font-size: 13px;
 }
 .about-current-label {
     font-size: 12px;
@@ -281,4 +304,83 @@ h5 {
 .about-name h4 {
     display: inline;
     border: 0px;
+}
+
+.panel-header{
+    color: #12B0DA;
+}
+div {
+    transition: 0.5s linear all;
+    opacity: 1;
+}
+div.ng-hide {
+    opacity: 0;
+}
+
+/*
+* Form Styles
+*/
+.profile-panel{
+    padding: 0px 5px 0px 12px;
+}
+
+.profile-panel .form-control{
+  border: none !important;
+}
+
+.profile-panel .form-control:focus {
+  outline: 0;
+  border: none !important;
+  border-bottom: 2px solid #21B5DC !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  font-weight: bold;
+}
+
+.profile-panel input{
+    height: 28px;
+    width: 80px;
+    padding: 3px 3px;
+}
+.profile-panel select{
+    height: 32px;
+     width: 100%;
+    max-width: 150px;
+    padding: 3px 5px;
+    margin-right: 15px;
+}
+.profile-panel .btn{
+    width: 15px;
+    height: 26px;
+    margin: 0px 1px;
+    padding-top: 1px;
+    border-radius: 100px;
+}
+
+.profile-panel .btn .glyphicon-ok{
+    color: #ffffff;
+   
+}
+.profile-panel .glyphicon{
+    margin-left: -5px;
+    font-size: 10px;
+}
+
+
+.project-panel{
+    padding-left: 15px;
+}
+.project-cards div{
+    padding: 3px;
+    margin: 0px;
+}
+
+.btn{
+    border-radius: 2px; 
+}
+.gbutton{
+    color: #fff !important;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
 }

@@ -9,15 +9,37 @@ license: MIT
 author: bootply.com
 */
 
-@import url(http://fonts.googleapis.com/css?family=Roboto:400);
+@import url(http://fonts.googleapis.com/css?family=Roboto:300);
  body {
-    background: #E5E5E5;
+    background: #E9EAED;
     background-size: cover;
     -webkit-font-smoothing: antialiased;
-    font: normal 14px Roboto, arial, sans-serif;
+    font: normal 14px arial, sans-serif;
+     
 }
 .navbar-default {
-    background-color: #f4f4f4;
+background-color: #FFFFFF;  
+}
+.navbar{
+    margin-bottom: 0px;
+}
+.subnav{
+    min-height:37px !important;
+    margin-bottom: 20px;
+}
+.subnav .navbar-nav > li > a {
+ padding-top: 7px; 
+ padding-bottom: 6px; 
+}
+.navbar-inverse {
+background-color: #298DC6;
+border-color: #7AC0DF;
+}
+.navbar-inverse .navbar-nav > li > a {
+color: #FAFAFA;
+}
+.navbar-default {
+    background-color: #fffff;
     border-width: 0;
     z-index: 5;
 }

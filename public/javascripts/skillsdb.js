@@ -1,7 +1,7 @@
 /**********************************************************************
  * Angular Application
  **********************************************************************/
-var skillsdb = angular.module('skillsdb', ['ngResource', 'xeditable'])
+var skillsdb = angular.module('skillsdb', ['ngResource', 'xeditable', 'ui.bootstrap'])
     .config(function ($routeProvider, $locationProvider, $httpProvider) {
         //================================================
         // Check if the user is connected
@@ -194,6 +194,35 @@ skillsdb.controller('ProfileCtrl', function($scope, $http, FIELD_CONSTANTS) {
   };
 });
 
+
+
+
+skillsdb.controller('ProjectsCtrl', function ($scope, $modal, $log) {
+  $scope.showProjectForm = function () {
+ $scope.items = ['item1', 'item2', 'item3'];
+    var modalInstance = $modal.open({
+      templateUrl: '/partials/projectPopup',
+      controller: 'ProjectFormCtrl',
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+  };
+});
+
+skillsdb.controller('ProjectFormCtrl', function ($scope, $modalInstance, items) {
+
+  $scope.items = items;
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+});
+/**********************************************************************
+* Custom Directives
+**********************************************************************/
 skillsdb.directive('showonhoverparent',
    function() {
       return {

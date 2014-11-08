@@ -1,0 +1,77 @@
+doctype html
+div.container.profile
+    
+    div.row
+        div.col-lg-4.profile-panel
+            //h4 About
+            
+            //profile
+            div.panel.panel-default
+                div.panel-body
+                    div.row
+                        div.col-lg-4
+                            // User photo
+                            a.thumbnail(href="#")
+                                img(src="../images/default-user.png")
+                        div.col-lg-8
+                            div.about-name
+                                form(editable-form name='editableForm' onaftersave='save()')
+                                    span(editable-text='user.firstname' e-name='firstname' e-required) {{user.firstname}} 
+                                    span(editable-text='user.lastname' e-name='lastname' e-required) {{user.lastname}} 
+                                    span(showonhoverparent style='display:none')
+                                        i.glyphicon.glyphicon-pencil(ng-click='editableForm.$show()' ng-show='!editableForm.$visible')
+                                    div(ng-show='editableForm.$visible')
+                                        button(class="btn btn-primary" type='submit', ng-disabled='editableForm.$waiting')
+                                            | Save
+                                        button(class="btn btn-default" type='button', ng-disabled='editableForm.$waiting', ng-click='editableForm.$cancel()')
+                                            | Cancel
+                            div.about-rank
+                                span(editable-select='rankId' e-ng-options='s.value as s.rank for s in ranks' onaftersave='saveRank()' e-form='positionForm') {{user.rank}} {{user.position}} 
+                                span(showonhoverparent style='display:none')
+                                    i.glyphicon.glyphicon-pencil(ng-click='positionForm.$show()' ng-hide='positionForm.$visible')
+                            div.about-department
+                                span(editable-select='user.department', e-ng-options='s.text as s.text for s in departments' onaftersave='save()' e-form='deptForm') {{ user.department }} 
+                                span(showonhoverparent style='display:none')
+                                        i.glyphicon.glyphicon-pencil(ng-click='deptForm.$show()' ng-hide='deptForm.$visible')
+                            div.about-project 
+                                span.about-current-label.pull-left Current Project 
+                                span.about-current-value.pull-right KNOX Apps
+                            
+        div.col-lg-8
+            div.row
+                div.col-lg-10
+                    h4 Experience
+                div.col-lg-2
+                    a(show-project-modal) [ Add ]
+            div.row
+                div.col-lg-12
+                    // 2 column projects
+                    div.col-lg-6
+                        div.panel.panel-default
+                            div.panel-body
+                                h4 Project Name
+                                p content
+                                
+                    div.col-lg-6
+                        div.panel.panel-default
+                            div.panel-body
+                                h4 subheading
+                                p content
+                                p content
+                                p content
+                                p content
+                                p content
+                                p content
+                    div.col-lg-6
+                        div.panel.panel-default
+                            div.panel-body
+                                h4 subheading
+                                p content
+
+                    div.col-lg-6
+                        div.panel.panel-default
+                            div.panel-body
+                                h4 subheading
+                                p content
+    input.form-control(ng-model="user.firstname")
+    button(ng-click="save()") Save

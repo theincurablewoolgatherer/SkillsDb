@@ -1,0 +1,7 @@
+div.container
+    form.form-signin.center-vertical(ng-submit = "login()", method = "post")
+        h2.form-signin-heading Sign In
+        input.form-control(ng-model = "user.username", placeholder = "Username")
+        input.form-control(ng-model = "user.password", type = "password", placeholder = "Password")
+        button.btn.btn-lg.btn-primary.btn-block(type = "submit") Login
+    

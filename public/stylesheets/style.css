@@ -436,7 +436,15 @@ div.ng-hide {
     border-radius: 0px;
     margin-top: 100px;
 }
+.modal.fade {
+  opacity: 1;
+}
 
+.modal.fade .modal-dialog, .modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
 .btn{
     border-radius: 2px; 
 }
@@ -446,7 +454,14 @@ div.ng-hide {
     font-weight: bold;
     text-align: center;
 }
-
+.project-modal-header {
+    padding: 22px;
+color: #ffffff;
+    font-weight:400;
+font: normal 14px 'Roboto', arial, sans-serif;
+text-align: center;
+background: #4DBFD9;
+}
 /*
 *   Form Elements
 */
@@ -458,6 +473,7 @@ div.ng-hide {
     background-color: #0FA9DE;
     border-color: #0FA9DE;
 }
+
 
 /*
 * Footer

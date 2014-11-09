@@ -1,9 +1,27 @@
-.modal-header
-  h4.modal-title Add Project
+.modal-header.project-modal-header
+  h4.modal-titleproject-modal-title Add Project
 .modal-body
-  ul
-    li(ng-repeat='item in items')
-      a(ng-click='selected.item = item') {{ item }}
-  | Selected:
-  b {{ selected.item }}
+    
+    form.form-horizontal
+        fieldset
+            .form-group
+              label.col-md-4.control-label(for='Company') Company
+              .col-md-5
+                input#Company.form-control.input-md(name='Company', type='text', placeholder='Company', required='')
+            //
+               Select Basic 
+            .form-group
+              label.col-md-4.control-label(for='Industry') Industry
+              .col-md-5
+                select#Industry.form-control(name='Industry')
+                  option(value='1') Semiconductor
+                  option(value='2') Utilities
+                  option(value='3') Banking
+            //
+               Textarea 
+            .form-group
+              label.col-md-4.control-label(for='Tags') Tags
+              .col-md-4
+                textarea#Tags.form-control(name='Tags') Tags
+
 .modal-footer

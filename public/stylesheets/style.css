@@ -1,4 +1,4 @@
-/*
+ /*
 A custom Bootstrap 3.2 'Google Plus style' theme
 from http://bootply.com
 
@@ -15,7 +15,7 @@ author: bootply.com
     background: #E9EAED;
     background-size: cover;
     -webkit-font-smoothing: antialiased;
-    font: normal 14px 'Roboto', arial, sans-serif;
+    font: normal 15px 'Roboto', arial, sans-serif;
      
 }
 .navbar-default {
@@ -29,9 +29,9 @@ background-color: #0076AA;
     margin-bottom: 20px;
 }
 .subnav .navbar-nav > li > a {
- padding-top: 10px; 
- padding-bottom: 9px;
-padding-right: 30px;
+ padding-top: 13px; 
+ padding-bottom: 12px;
+    padding-right: 30px;
     padding-left: 30px;
     font: normal 14px 'Roboto', arial, sans-serif;
 }
@@ -39,20 +39,28 @@ padding-right: 30px;
 background-color: #008ABA;
 border-color: #008ABA;
 }
+.navbar-brand img{
+margin-left: 25px;
+margin-top: -4px;
+}
 .navbar-inverse .navbar-nav > li > a {
-color: #FAFAFA;
+    color: #FAFAFA;
+     opacity: .85;
+    transition: 0.4s linear all;
 }
 .navbar-default {
     background-color: #fffff;
     border-width: 0;
     z-index: 5;
 }
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > li:hover > a {
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > li:hover > a {
     border: 0 solid #4285f4;
-    border-bottom-width: 2px;
-    font-weight: 800;
-    background-color: transparent;
+    border-bottom-width: 0px;
+    opacity: 1;
+    background-color: rgba(255,255,255,.1);
+    transition: 0.3s linear all;
+   
 }
 .navbar-default .dropdown-menu {
     background-color: #ffffff;
@@ -437,6 +445,18 @@ div.ng-hide {
     font-size: 12px;
     font-weight: bold;
     text-align: center;
+}
+
+/*
+*   Form Elements
+*/
+.btn-primary{
+    background-color: #008ABA;
+    border-color: #008ABA;
+}
+.btn-primary:active, .btn-primary:hover{
+    background-color: #0FA9DE;
+    border-color: #0FA9DE;
 }
 
 /*

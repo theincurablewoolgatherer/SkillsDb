@@ -60,7 +60,7 @@ createProfile = function(req, res) {
 
 showProfilePage = function (req, res) {
   if(req.isAuthenticated())
-        res.render('partials/profile',{ title : 'Home' });
+        res.render('partials/profile',{ title : 'Skills[db] | Profile ' });
     else
         res.redirect("/");    
 }

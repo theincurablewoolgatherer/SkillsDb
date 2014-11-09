@@ -10,15 +10,16 @@ author: bootply.com
 */
 
 @import url(http://fonts.googleapis.com/css?family=Roboto:300);
+@import url(http://fonts.googleapis.com/css?family=Roboto:400);
  body {
     background: #E9EAED;
     background-size: cover;
     -webkit-font-smoothing: antialiased;
-    font: normal 14px arial, sans-serif;
+    font: normal 14px 'Roboto', arial, sans-serif;
      
 }
 .navbar-default {
-background-color: #FFFFFF;  
+background-color: #0076AA;  
 }
 .navbar{
     margin-bottom: 0px;
@@ -32,6 +33,7 @@ background-color: #FFFFFF;
  padding-bottom: 9px;
 padding-right: 30px;
     padding-left: 30px;
+    font: normal 14px 'Roboto', arial, sans-serif;
 }
 .navbar-inverse {
 background-color: #008ABA;
@@ -194,8 +196,13 @@ h5 {
         padding-top: 6px;
     }
 }
-#main {
-    padding-top: 120px;
+#wrap {
+     display:block;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto;
+   
 }
 .form-signin {
     border: 1px solid #D8D8D8;
@@ -317,10 +324,12 @@ h5 {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-.card .card-heading.simple {
-    font-size: 20px;
-    font-weight: 300;
-    color: #777;
+
+.project-cards .panel h2,.project-cards .panel h3,.project-cards .panel h4,.project-cards .panel h5,.project-cards .panel h6 {
+    padding: 4px 16px 14px 17px;
+    font-size: 17px;
+    font-weight: 400;
+    color: #1f1f1f;
     border-bottom: 1px solid #e5e5e5;
 }
 
@@ -333,6 +342,13 @@ h5 {
 .panel-header{
     color: #12B0DA;
 }
+
+/*
+* Fade Transitions
+*/
+.btn{
+    transition: 0.2s linear all;
+}
 div {
     transition: 0.5s linear all;
     opacity: 1;
@@ -340,6 +356,7 @@ div {
 div.ng-hide {
     opacity: 0;
 }
+
 
 /*
 * Form Styles
@@ -394,9 +411,22 @@ div.ng-hide {
 .project-panel{
     padding-left: 15px;
 }
+
 .project-cards div{
     padding: 3px;
     margin: 0px;
+}
+
+.project-cards .panel-body, .project-cards .panel{
+    padding: 0px;
+}
+
+/*
+* Modal 
+*/
+.modal-content {
+    border-radius: 0px;
+    margin-top: 100px;
 }
 
 .btn{
@@ -407,4 +437,14 @@ div.ng-hide {
     font-size: 12px;
     font-weight: bold;
     text-align: center;
+}
+
+/*
+* Footer
+*/
+#footer {
+background-color: #f5f5f5;
+}
+#push, #footer {
+height: 60px;
 }

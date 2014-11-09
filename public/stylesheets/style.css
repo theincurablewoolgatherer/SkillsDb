@@ -454,13 +454,27 @@ div.ng-hide {
     font-weight: bold;
     text-align: center;
 }
+.modal-icon{
+    display: inline-block;
+    width: 40px;
+    border-radius: 100px;
+    background: rgba(255,255,255,.2);
+    height: 40px;
+    float: left;
+    margin-top: -12px;
+    padding-top: 10px;
+}
+.project-modal-header add{
+    font-weight: 400;
+    margin-left: -25px;
+}
 .project-modal-header {
     padding: 22px;
-color: #ffffff;
+    color: #ffffff;
     font-weight:400;
-font: normal 14px 'Roboto', arial, sans-serif;
-text-align: center;
-background: #4DBFD9;
+    font: normal 14px 'Roboto', arial, sans-serif;
+    text-align: center;
+    background: #4DBFD9;
 }
 /*
 *   Form Elements

@@ -1,27 +1,67 @@
 .modal-header.project-modal-header
-  h4.modal-titleproject-modal-title Add Project
+ 
+  h4.modal-titleproject-modal-title  
+      span.modal-icon
+        i.glyphicon.glyphicon-book 
+      Add Project
 .modal-body
     
     form.form-horizontal
         fieldset
             .form-group
-              label.col-md-4.control-label(for='Company') Company
-              .col-md-5
-                input#Company.form-control.input-md(name='Company', type='text', placeholder='Company', required='')
-            //
-               Select Basic 
+              label.col-md-4.control-label(for='projectname') Project Title
+              .col-md-7
+                input#projectname.form-control.input-md(name='projectname', type='text', placeholder='Project Name', required='')
             .form-group
-              label.col-md-4.control-label(for='Industry') Industry
-              .col-md-5
-                select#Industry.form-control(name='Industry')
+              label.col-md-4.control-label(for='company') Company
+              .col-md-7
+                input#Company.form-control.input-md(name='company', type='text', placeholder='Company', required='')
+            .form-group
+              label.col-md-4.control-label(for='industry') Industry
+              .col-md-7
+                select#Industry.form-control(name='industry')
                   option(value='1') Semiconductor
                   option(value='2') Utilities
                   option(value='3') Banking
-            //
-               Textarea 
+            .form-group
+              .col-md-2   
+              label.col-md-2.control-label(for='startdate') From
+              .col-md-3
+                input#startdate.form-control.input-md(name='startdate', type='text', placeholder='Start Date', required='')
+              label.col-md-1.control-label(for='enddate') To
+              .col-md-3
+                input#enddate.form-control.input-md(name='enddate', type='text', placeholder='End Date', required='')
+            hr
+            .form-group
+              label.col-md-4.control-label(for='skills') Skills
+              .col-lg-7
+                .input-group
+                    select#skill.form-control(name='skill')
+                      option(value='1') Java
+                      option(value='2') C
+                      option(value='3') HTML
+                    span.input-group-btn
+                      button.btn.btn-default(type='button') 
+                        i.glyphicon.glyphicon-plus 
+            .form-group
+              label.col-md-4.control-label(for='technologies') Technologies
+              .col-lg-7
+                .input-group
+                    select#technologies.form-control(name='technologies')
+                      option(value='1') Networking
+                      option(value='2') AI
+                      option(value='3') Big Data
+                    span.input-group-btn
+                      button.btn.btn-default(type='button') 
+                        i.glyphicon.glyphicon-plus 
+
+                
+            // Textarea 
             .form-group
               label.col-md-4.control-label(for='Tags') Tags
-              .col-md-4
+              .col-md-7
                 textarea#Tags.form-control(name='Tags') Tags
+            
+            buton.btn.btn-default(type="submit") Save
 
 .modal-footer

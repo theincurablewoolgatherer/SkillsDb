@@ -6,7 +6,11 @@ var UserSchema = new mongoose.Schema({
     lastname: String,
     department: String,
     rank: String,
-    position: String
+    position: String,
+    project: [{
+        name : String,
+        company : String
+     }]
 });
 
 module.exports = mongoose.model('User', UserSchema);

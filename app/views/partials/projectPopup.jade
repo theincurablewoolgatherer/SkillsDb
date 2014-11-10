@@ -4,7 +4,7 @@
       span.modal-icon
         i.glyphicon.glyphicon-book 
       Add Project
-.modal-body
+.modal-body()
     
     form.form-horizontal
         fieldset
@@ -35,32 +35,20 @@
             .form-group
               label.col-md-4.control-label(for='skills') Skills
               .col-lg-7
-                .input-group
-                    select#skill.form-control(name='skill')
-                      option(value='1') Java
-                      option(value='2') C
-                      option(value='3') HTML
-                    span.input-group-btn
-                      button.btn.btn-default(type='button') 
-                        i.glyphicon.glyphicon-plus 
+                tags-input#skills(ng-model="skills", name="skills", display-property="skill", min-length=1, add-from-autocomplete-only="true", placeholder="i.e. Java, Android, MongoDB. etc.")
+                    auto-complete(source = "loadSkills($query)", min-length = 1, load-on-down-arrow = "true", debounce-delay=10, max-results-to-show=5)
+                
             .form-group
               label.col-md-4.control-label(for='technologies') Technologies
               .col-lg-7
-                .input-group
-                    select#technologies.form-control(name='technologies')
-                      option(value='1') Networking
-                      option(value='2') AI
-                      option(value='3') Big Data
-                    span.input-group-btn
-                      button.btn.btn-default(type='button') 
-                        i.glyphicon.glyphicon-plus 
-
+                tags-input#technologies(ng-model="technologies", name="technologies",   display-property="technology", min-length=1, add-from-autocomplete-only="true", placeholder="i.e. Machine Learning, Data Warehousing, etc.")
+                    auto-complete(source = "loadTechnologies($query)", min-length = 1, load-on-down-arrow = "true", debounce-delay=10, max-results-to-show=5)
                 
             // Textarea 
             .form-group
               label.col-md-4.control-label(for='Tags') Tags
               .col-md-7
-                textarea#Tags.form-control(name='Tags') Tags
+                tags-input#tags(ng-model="tags", name="tags", min-length=3, placeholder="Project Tags")
             
             buton.btn.btn-default(type="submit") Save
 

@@ -1,5 +1,10 @@
 extends ../base
+
 block content
+    style(type='text/css')
+         |body {
+         |    background:url('/public/images/wallpaper.jpg');background: url('/images/wallpaper.jpg');background-size: cover;background-repeat: no-repeat;
+         |}
     div#wrap
         div.container(ng-controller="LoginCtrl")
             form.form-signin.center-vertical(ng-submit = "login()", method = "post")

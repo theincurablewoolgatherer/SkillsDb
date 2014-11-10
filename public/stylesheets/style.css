@@ -488,7 +488,47 @@ div.ng-hide {
     border-color: #0FA9DE;
 }
 
-
+/*
+* Tags Input
+*/
+tags-input .tags .tag-item.selected {
+/* background: -webkit-linear-gradient(top,#febbbb 0,#fe9090 45%,#ff5c5c 100%); */
+background: #FFB6AB;
+color: #B52424;
+border: 1px solid #DD7D7D;
+}
+.focused{
+ border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+tags-input .tags .input.invalid-tag {
+color: rgb(215, 5, 5);
+}
+tags-input .tags .input{
+    font-family: Roboto, arial, sans-serif;
+font-size: 14px;
+    color: rgb(85,85,85);
+}
+tags-input .tags .tag-item{
+    margin: 1px;
+padding: 0 5px;
+display: inline-block;
+float: left;
+font: 12px Roboto,Arial,sans-serif;
+height: 25px;
+line-height: 25px;
+border: 1px solid #61B6CD;
+border-radius: 3px;
+color: #306683;
+background: rgba(190, 226, 238, 0.43);
+}
 /*
 * Footer
 */

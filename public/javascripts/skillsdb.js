@@ -1,7 +1,7 @@
 /**********************************************************************
  * Angular Application
  **********************************************************************/
-var skillsdb = angular.module('skillsdb', ['ngResource', 'xeditable', 'ui.bootstrap'])
+var skillsdb = angular.module('skillsdb', ['ngResource', 'xeditable', 'ui.bootstrap','ngTagsInput'])
     .config(function ($locationProvider, $httpProvider) {
         //================================================
         // Check if the user is connected
@@ -84,6 +84,19 @@ skillsdb.constant('FIELD_CONSTANTS', {
         {value: 1, position: 'Lead Engineer'},
         {value: 2, position: 'Senior Engineer'},
         {value: 3, position: 'Principal Engineer'},
+    ],
+    "SKILLS": [
+        {value: 0, skill: 'Java'},
+        {value: 1, skill: 'C++'},
+        {value: 2, skill: 'C#'},
+        {value: 3, skill: 'Android'},
+        {value: 4, skill: 'MySQL'}
+    ],
+    "TECHNOLOGIES": [
+        {value: 0, technology: 'Machine Learning'},
+        {value: 1, technology: 'Data Warehousing'},
+        {value: 2, technology: 'Web'},
+        {value: 3, technology: 'Server Admin'}
     ]
 });
 
@@ -165,21 +178,21 @@ skillsdb.controller('ProjectsCtrl', function ($scope, $modal, $log) {
     $scope.items = ['item1', 'item2', 'item3'];
     var modalInstance = $modal.open({
       templateUrl: 'partials/projectPopUp',
-      controller: 'ProjectFormCtrl',
-      resolve: {
-        items: function () {
-          return $scope.items;
-        }
-      }
+      controller: 'ProjectFormCtrl'
     });
   };
 });
 
-skillsdb.controller('ProjectFormCtrl', function ($scope, $modalInstance, items) {
-  $scope.items = items;
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
+skillsdb.controller('ProjectFormCtrl', function ($scope, $modalInstance, tags) {
+      $scope.loadSkills = function(query) {
+         return tags.loadSkills(query);
+      };
+      $scope.loadTechnologies = function(query) {
+         return tags.loadTechnologies(query);
+      };
+      $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+      };
 });
 
 /**********************************************************************
@@ -198,3 +211,39 @@ skillsdb.directive('showonhoverparent',
        }
    };
 });
+/**********************************************************************
+* Custom Services
+**********************************************************************/
+skillsdb.service('tags', function($q, FIELD_CONSTANTS) {
+  this.loadSkills = function(query) {
+    // TODO: DUPLICATE MATCHING ALGORITHM
+    // Create utility class that matches
+    var deferred = $q.defer();
+      var results = [];
+      for (var i = 0; i < FIELD_CONSTANTS.SKILLS.length; i++) {
+        if (FIELD_CONSTANTS.SKILLS[i].skill.indexOf(query) == 0) {
+          results.push(FIELD_CONSTANTS.SKILLS[i]);
+        }
+      }
+    deferred.resolve(results);
+    return deferred.promise;
+  };
+    
+  this.loadTechnologies = function(query) {
+    // TODO: DUPLICATE MATCHING ALGORITHM
+    // Create utility class that matches
+    var deferred = $q.defer();
+      var results = [];
+      for (var i = 0; i < FIELD_CONSTANTS.TECHNOLOGIES.length; i++) {
+        if (FIELD_CONSTANTS.TECHNOLOGIES[i].technology.indexOf(query) == 0) {
+          results.push(FIELD_CONSTANTS.TECHNOLOGIES[i]);
+        }
+      }
+    deferred.resolve(results);
+    return deferred.promise;
+  };
+    
+});
+
+
+

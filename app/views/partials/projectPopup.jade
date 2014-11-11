@@ -6,12 +6,12 @@
       Add Project
 .modal-body()
     
-    form.form-horizontal
+    form.form-horizontal(ng-submit="saveProject()", method = "post")
         fieldset
             .form-group
               label.col-md-4.control-label(for='projectname') Project Title
               .col-md-7
-                input#projectname.form-control.input-md(name='projectname', type='text', placeholder='Project Name', required='')
+                input#projectname.form-control.input-md(name='projectname', ng-model="project.projectname", type='text', placeholder='Project Name', required='')
             .form-group
               label.col-md-4.control-label(for='company') Company
               .col-md-7
@@ -35,13 +35,13 @@
             .form-group
               label.col-md-4.control-label(for='skills') Skills
               .col-lg-7
-                tags-input#skills(ng-model="skills", name="skills", display-property="skill", min-length=1, add-from-autocomplete-only="true", placeholder="i.e. Java, Android, MongoDB. etc.")
+                tags-input#skills(ng-model="skills", name="skills", display-property="skill", minTags="1", min-length=1, add-from-autocomplete-only="true", placeholder="i.e. Java, Android, MongoDB. etc.")
                     auto-complete(source = "loadSkills($query)", min-length = 1, load-on-down-arrow = "true", debounce-delay=10, max-results-to-show=5)
                 
             .form-group
               label.col-md-4.control-label(for='technologies') Technologies
               .col-lg-7
-                tags-input#technologies(ng-model="technologies", name="technologies",   display-property="technology", min-length=1, add-from-autocomplete-only="true", placeholder="i.e. Machine Learning, Data Warehousing, etc.")
+                tags-input#technologies(ng-model="technologies", name="technologies", minTags="1", display-property="technology", min-length=1, add-from-autocomplete-only="true", placeholder="i.e. Machine Learning, Data Warehousing, etc.")
                     auto-complete(source = "loadTechnologies($query)", min-length = 1, load-on-down-arrow = "true", debounce-delay=10, max-results-to-show=5)
                 
             // Textarea 
@@ -50,6 +50,6 @@
               .col-md-7
                 tags-input#tags(ng-model="tags", name="tags", min-length=3, placeholder="Project Tags")
             
-            buton.btn.btn-default(type="submit") Save
+            button.btn.btn-default(type="submit") Save
 
 .modal-footer

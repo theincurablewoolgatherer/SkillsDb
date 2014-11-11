@@ -10,7 +10,7 @@ var session      = require('express-session');
 
 var appController = require('./app/controllers/index');
 var profileController = require('./app/controllers/profile');
-
+var projectController = require('./app/controllers/project');
 var app = express();
 // Configuration ===================================================
 
@@ -37,6 +37,7 @@ app.use(passport.session());
 
 // Routes ===========================================================
 app.use('/profile', profileController);
+app.use('/project', projectController);
 app.use('/', appController);
 
 

@@ -1,64 +1,15 @@
 /**********************************************************************
  * Angular Application
  **********************************************************************/
-var skillsdb = angular.module('skillsdb', ['ngResource', 'xeditable', 'ui.bootstrap','ngTagsInput'])
-    .config(function ($locationProvider, $httpProvider) {
-        //================================================
-        // Check if the user is connected
-        //================================================
-        var checkLoggedin = function ($q, $timeout, $http, $location, $rootScope) {
-            // Initialize a new promise
-            var deferred = $q.defer();
-
-            // Make an AJAX call to check if the user is logged in
-            $http.get('/loggedin').success(function (user) {
-
-                if (user !== '0') {
-                    // Authenticated
-                    $timeout(deferred.resolve, 0);
-                } else {
-                    // Not Authenticated
-                    $rootScope.message = 'You need to log in.';
-                    $timeout(function () {
-                        deferred.reject();
-                    }, 0);
-                    $location.url('/login');
-                }
-            });
-
-            return deferred.promise;
-        };
-        //================================================
-
-        //================================================
-        // Add an interceptor for AJAX errors
-        //================================================
-        $httpProvider.responseInterceptors.push(function ($q, $location) {
-            return function (promise) {
-                return promise.then(
-                    // Success: just return the response
-                    function (response) {
-                        return response;
-                    },
-                    // Error: check the error status to get only the 401
-                    function (response) {
-                        if (response.status === 401)
-                            $location.url('/login');
-                        return $q.reject(response);
-                    }
-                );
-            }
-        });
-        //================================================
-
-
-        //================================================
-
-    }) // end of config()
-    .run(function ($rootScope, $http, editableOptions) {
+var skillsdb = angular.module('skillsdb', ['ngResource', 'xeditable', 'ui.bootstrap','ngTagsInput','ngToast'])
+    .config(['ngToastProvider', function(ngToast) {
+    ngToast.configure({
+       horizontalPosition: 'center'
+    });
+  }]) // end of config()
+    .run(function ($rootScope, $http, editableOptions, ngToast) {
         $rootScope.message = '';
         editableOptions.theme = 'bs3';
-
         // Logout function is available in any pages
         $rootScope.logout = function () {
             $rootScope.message = 'Logged out.';
@@ -183,7 +134,11 @@ skillsdb.controller('ProjectsCtrl', function ($scope, $modal, $log) {
   };
 });
 
-skillsdb.controller('ProjectFormCtrl', function ($scope, $modalInstance, tags) {
+
+skillsdb.controller('ProjectFormCtrl', function ($http, $scope, $modalInstance, ngToast, tags) {
+        
+      $scope.project = {};
+      
       $scope.loadSkills = function(query) {
          return tags.loadSkills(query);
       };
@@ -192,6 +147,22 @@ skillsdb.controller('ProjectFormCtrl', function ($scope, $modalInstance, tags) {
       };
       $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
+      };
+      $scope.saveProject = function() {
+          $http.post('/project/', {
+                projectname: $scope.project.projectname
+            })
+            .success(function () {
+                console.log("PROJECT SAVED");
+                var msg = ngToast.create({
+                  content: 'Project Saved'
+                });
+               
+                $modalInstance.dismiss('saved');
+            })
+            .error(function () {
+                 console.log("PROJECT ERROR");
+            });
       };
 });
 

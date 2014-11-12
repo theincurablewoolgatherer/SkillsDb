@@ -3,7 +3,7 @@ extends ../base
 block content
     style(type='text/css')
          |body {
-         |    background:url('/public/images/wallpaper.jpg');background: url('/images/wallpaper.jpg');background-size: cover;background-repeat: no-repeat;
+         |     background: #00BCD4;
          |}
     div#wrap
         div.container(ng-controller="LoginCtrl")
@@ -11,5 +11,6 @@ block content
                 h2.form-signin-heading Sign In
                 input.form-control(ng-model = "user.username", placeholder = "Username")
                 input.form-control(ng-model = "user.password", type = "password", placeholder = "Password")
+                br
                 button.btn.btn-lg.btn-primary.btn-block(type = "submit") Login
     

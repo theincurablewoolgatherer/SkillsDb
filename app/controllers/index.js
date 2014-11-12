@@ -31,9 +31,10 @@ app.post('/login', passport.authenticate('local'), function(req, res) {
     res.send(req.user);
 });
 
-app.post('/logout', function(req, res){
-    req.logOut();
-    res.send(200);
+app.get('/logout', function(req, res){
+    req.session.destroy(function (err) {
+        res.redirect('/');
+    });
 });
 
 

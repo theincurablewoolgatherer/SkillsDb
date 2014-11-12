@@ -8,6 +8,7 @@ var mongoose = require('mongoose')
 var passport = require('passport');
 var session      = require('express-session');
 
+var apiController = require('./app/controllers/api');
 var appController = require('./app/controllers/index');
 var profileController = require('./app/controllers/profile');
 var projectController = require('./app/controllers/project');
@@ -38,6 +39,7 @@ app.use(passport.session());
 // Routes ===========================================================
 app.use('/profile', profileController);
 app.use('/project', projectController);
+app.use('/api', apiController);
 app.use('/', appController);
 
 

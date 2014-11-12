@@ -1,5 +1,9 @@
 extends base
 block nav
+    style(type='text/css')
+         |.navbar_container{
+         | box-shadow: 0 2px 5px rgba(0,0,0,0.16);
+         |}
     nav.navbar.navbar-static-top.navbar-inverse.subnav(role="navigation")
         div.container
             div.navbar-collapse.collapse
@@ -12,5 +16,4 @@ block nav
                         a(href="#") Settings
                 ul.nav.navbar-nav.navbar-right
                     li 
-                        a(href="#") 
-                            i.glyphicon.glyphicon-log-out
+                        a(href="/logout") Logout

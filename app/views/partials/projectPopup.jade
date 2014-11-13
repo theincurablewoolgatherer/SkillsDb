@@ -59,7 +59,7 @@
             .form-group
               label.col-md-4.control-label(for='Tags') Tags
               .col-md-7
-                tags-input#tags(ng-model="project.tags", name="tags", min-length=3, placeholder="Project Tags")
+                tags-input#tags(ng-model="project.tags", display-property="tag", name="tags", min-length=3, placeholder="Project Tags")
             
             button.btn.btn-default(type="submit") Save
 

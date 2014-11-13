@@ -22,9 +22,9 @@ block content
                                                 span(showonhoverparent style='display:none')
                                                     i.glyphicon.glyphicon-pencil.edit-glyph(ng-click='editableForm.$show()' ng-show='!editableForm.$visible')
                                                 span(ng-show='editableForm.$visible')
-                                                    button(class="btn btn-primary" type='submit', ng-disabled='editableForm.$waiting')
+                                                    button(class="circle-button" type='submit', ng-disabled='editableForm.$waiting')
                                                         span.glyphicon.glyphicon-ok
-                                                    button(class="btn btn-default" type='button', ng-disabled='editableForm.$waiting', ng-click='editableForm.$cancel()')
+                                                    button(class="circle-button" type='button', ng-disabled='editableForm.$waiting', ng-click='editableForm.$cancel()')
                                                         span.glyphicon.glyphicon-remove
                                         div.about-rank
                                             span(editable-select='rankId' e-ng-options='s.value as s.rank for s in ranks' onaftersave='saveRank()' e-form='positionForm') {{user.rank}} {{user.position}} 
@@ -37,9 +37,10 @@ block content
                                         div.about-project 
                                             span.about-current-label.pull-left Current Project 
                                             span.about-current-value.pull-right KNOX Apps
-                       div.row
+                       
+                       div.row(style="margin-top: 40px;")
                             div.col-lg-12
-                               // h2.panel-header Stats
+                               h2.panel-header Top Skills
 
                 div.col-lg-8.project-panel(ng-controller="ProjectsCtrl",ng-init="collapse = true")
                     div.row
@@ -48,20 +49,35 @@ block content
                     div.row
                         div.col-lg-12.project-cards
                             // 2 column projects
-                            div.col-lg-4(ng-repeat="project in projects")
-                                div.panel.panel-default(ng-click='collapse=!collapse')
-                                    div.panel-body
-                                        h4 {{project.projectname}}
-                                        p {{project.company}}
-                                        p {{project.industry}}
-                                    div.panel-body()
-                                        p {{project.startdate}} - {{project.enddate}}
-                                        p {{project.tags}}
-                                        p Y
+                            div.project-card.col-lg-12(ng-repeat="project in projects")
+                                div.col-md-2
+                                    span.project-number {{$index+1 | leftpad}}
+                                div.col-md-9(ng-click='collapse=!collapse')
+                                    div.row
+                                        span.project-name {{project.projectname}}
+                                        span.project-date {{project.startdate | date:"MM/yyyy"}} - {{project.enddate | date:"MM/yyyy"}}
+                                    div.row
+                                        span.project-company  {{project.company}}
+                                        span.project-industry {{project.industry}}
+                                    br
+                                    div.row
+                                        span.project-skills-label  Skills
+                                    div.row
+                                        span.project-skills 
+                                            span(ng-repeat="skill in project.skills") {{ skill.skill }} {{$last ? '' : ', '}}
+                                    br
+                                    div.row
+                                        span.project-technologies-label  Technologies
+                                    div.row
+                                        span.project-technologies 
+                                            span(ng-repeat="technology in project.technologies") {{ technology.technology }} {{$last ? '' : ', '}}
+                                    br
+                                    div.row
+                                        span.project-tag(ng-repeat="tag in project.tags") \#{{tag.tag}}
 
                         
-                            div.col-lg-4
-                                button.btn.btn-primary.add-button(ng-click="showProjectForm()")
+                            div.col-lg-12
+                                button.add-button(ng-click="showProjectForm()")
                                     h1
                                         i.glyphicon.glyphicon-plus
                                     

@@ -100,8 +100,45 @@ getProjects = function(req, res) {
 
     }
   });
-
 }
+
+// Retrieve Projects
+getSkills = function(req, res) {
+  skills = [];
+  User.findOne({username: req.params.username}, function(err, user){
+    if(err){
+      res.statusCode = 500;
+      return res.send({error: err});
+    }else{
+      if(!user){
+        res.statusCode = 500;
+        return res.send({error : 'No such user'});
+      }else{
+        Project.aggregate(
+            [{ $match: {
+                user:  mongoose.Types.ObjectId(user._id)
+            }},
+            { $unwind : "$skills" }, 
+            { $group : { _id : "$skills.skill", project_count : { $sum : 1 } , project_days: {$sum: {$subtract: ["$enddate", "$startdate"]}}} },
+            { $sort : { project_days : -1 } }
+            
+            
+            ], function(err, projects){
+          if(err){
+            res.statusCode = 500;
+            return res.send({error: err});
+          }else{
+            res.statusCode = 200;
+            return res.json(projects);
+          }
+
+        });
+      }
+
+    }
+  });
+}
+  
 
 //========================================================
 // II. Controller URL to Action mapping
@@ -112,6 +149,7 @@ app.post('/project', createProject);
 app.get('/profile/:username', getProfile);
 app.post('/profile', createProfile);
 app.put('/profile', updateProfile);
+app.get('/profile/skills/of/:username', getSkills);
 
 module.exports = app;
 

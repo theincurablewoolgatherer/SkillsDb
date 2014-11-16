@@ -2,7 +2,7 @@ extends ../index
 block content
     div#wrap
         div.container.profile
-
+        
             div.row(ng-controller = "ProfileCtrl")
                 div.col-lg-4.profile-panel
                     div.row
@@ -38,9 +38,18 @@ block content
                                             span.about-current-label.pull-left Current Project 
                                             span.about-current-value.pull-right KNOX Apps
                        
-                       div.row(style="margin-top: 40px;")
-                            div.col-lg-12
-                               h2.panel-header Top Skills
+                       div.row(style="margin-top: 40px;", ng-show="topskills.length > 0")
+                            div.col-lg-12.topskills-panel
+                                h2.panel-header Top Skills
+                               
+                                ul.list-group.top-skills
+                                    li.list-group-item(ng-repeat="skill in topskills")
+                                        span.badge {{skill.project_count}}
+                                        span.top-skill
+                                            {{skill._id}}
+                                        span.top-skill-days
+                                            {{skill.project_days | milliSecondsToDays}} project exp
+
 
                 div.col-lg-8.project-panel(ng-controller="ProjectsCtrl",ng-init="collapse = true")
                     div.row
@@ -55,7 +64,7 @@ block content
                                 div.col-md-9(ng-click='collapse=!collapse')
                                     div.row
                                         span.project-name {{project.projectname}}
-                                        span.project-date {{project.startdate | date:"MM/yyyy"}} - {{project.enddate | date:"MM/yyyy"}}
+                                        span.project-date {{project.startdate | date:"MM/dd/yyyy"}} - {{project.enddate | date:"MM/dd/yyyy"}}
                                     div.row
                                         span.project-company  {{project.company}}
                                         span.project-industry {{project.industry}}

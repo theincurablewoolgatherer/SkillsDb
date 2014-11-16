@@ -16,7 +16,7 @@ app.get('/', function(req, res){
     if(req.isAuthenticated())
         res.redirect("/profile");
     else
-         res.render('partials/login', { title : 'Skills[db] ' });
+         res.render('partials/login', { title : 'skills|db ' });
     
 });
 

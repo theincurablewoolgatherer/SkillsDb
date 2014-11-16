@@ -1,7 +1,7 @@
 /**********************************************************************
  * Angular Application
  **********************************************************************/
- var skillsdb = angular.module('skillsdb', ['ngResource', 'xeditable', 'ui.bootstrap','ngTagsInput','ngToast'])
+ var skillsdb = angular.module('skillsdb', ['ngResource', 'xeditable', 'ui.bootstrap','ngTagsInput','ngAnimate','ngToast'])
  .config(['ngToastProvider', function(ngToast) {
   ngToast.configure({
    horizontalPosition: 'center'
@@ -57,23 +57,33 @@ skillsdb.constant('FIELD_CONSTANTS', {
 skillsdb.controller('LoginCtrl', function ($scope, $rootScope, $http, $location) {
     // This object will be filled by the form
     $scope.user = {};
-
+    $scope.isLoginValid = true;
+    $scope.err = '';
     // Register the login() function
     $scope.login = function () {
+        
+      if(!$scope.user.username || !$scope.user.password){
+        $scope.isLoginValid = false;
+        $scope.err = "Username/Password required!";
+        return;
+      }    
       $http.post('/login', {
         username: $scope.user.username,
         password: $scope.user.password,
       })
       .success(function (user) {
                 // No error: authentication OK
+                $scope.isLoginValid = true;
                 $rootScope.message = 'Authentication successful!';
                 window.location.href = "/profile";
+                
                 //$http.get('/profile');
               })
       .error(function () {
                 // Error: authentication failed
+                $scope.err = "Incorrect Username/Password";
                 $rootScope.message = 'Authentication failed.';
-                $location.get('/login');
+                $scope.isLoginValid = false;
               });
     };
   });
@@ -81,11 +91,14 @@ skillsdb.controller('LoginCtrl', function ($scope, $rootScope, $http, $location)
 /**********************************************************************
 * Profile controller
 **********************************************************************/
-skillsdb.controller('ProfileCtrl', function($scope, $http, FIELD_CONSTANTS, ngToast) {
+skillsdb.controller('ProfileCtrl', function($scope, $rootScope, $http, FIELD_CONSTANTS, ngToast) {
+  $scope.isViewingOwnProfile =  false;  
   $scope.departments = FIELD_CONSTANTS.DEPARTMENTS;
   $scope.ranks = FIELD_CONSTANTS.RANKS;
   $scope.positions = FIELD_CONSTANTS.POSITIONS;
   $scope.rankId = 0;
+  $scope.topskills = [];
+//  /$scope.profile_viewer = profile_viewer;
   // Get currently logged User's info
   $http.get('/loggedin').success(function(user){
     $scope.user = user;
@@ -105,6 +118,7 @@ skillsdb.controller('ProfileCtrl', function($scope, $http, FIELD_CONSTANTS, ngTo
     if(!user.position){
       $scope.user.position = "position";
     }
+    $scope.loadTopSkills();
   });
 
   // Profile Save function
@@ -123,6 +137,19 @@ skillsdb.controller('ProfileCtrl', function($scope, $http, FIELD_CONSTANTS, ngTo
     $scope.user.rank = $scope.ranks[$scope.rankId].rank;
     $scope.save();
   };
+    
+   // Get top skills
+   $scope.loadTopSkills = function () {
+    $http.get('/api/profile/skills/of/'+$scope.user.username ).success(function(skills){
+      $scope.topskills = skills
+    }).error(function (err) {
+     console.log("error loading skills");
+   });
+  };
+    
+  $rootScope.$on("reloadTopSkills", function (event, args) {
+    $scope.loadTopSkills();
+  });
 });
 
 
@@ -132,7 +159,6 @@ skillsdb.controller('ProfileCtrl', function($scope, $http, FIELD_CONSTANTS, ngTo
 skillsdb.controller('ProjectsCtrl', function ($rootScope, $scope, $modal, $log, $http) {
   $scope.projects = [];
   $scope.user = {};
-
    
   $http.get('/loggedin').success(function(user){
     $scope.user = user;
@@ -183,6 +209,7 @@ skillsdb.controller('ProjectFormCtrl', function ($http, $rootScope,$scope, $moda
       });
       $modalInstance.dismiss('saved');
       $rootScope.$broadcast("reloadProjects");
+      $rootScope.$broadcast("reloadTopSkills");
     })
     .error(function () {
      console.log("PROJECT ERROR");
@@ -264,3 +291,15 @@ skillsdb.filter("leftpad", function() {
   };
 });
 
+skillsdb.filter("milliSecondsToDays", function() {
+  return function(ms) {
+    if (ms !== null && ms !== undefined) {
+      day = Math.round((ms / 8.64e+7) * 100) / 100;
+      dayString = " day";
+      if(day > 1){
+          dayString = " days";
+      }
+      return ""+day+dayString;
+    }
+  };
+});

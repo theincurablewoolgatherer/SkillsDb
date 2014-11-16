@@ -8,7 +8,9 @@ block content
     div#wrap
         div.container(ng-controller="LoginCtrl")
             form.form-signin.center-vertical(ng-submit = "login()", method = "post")
+                alert(type="danger",close="isLoginValid=true", ng-hide="isLoginValid", class="fade") {{err}}
                 h2.form-signin-heading Sign In
+                
                 input.form-control(ng-model = "user.username", placeholder = "Username")
                 input.form-control(ng-model = "user.password", type = "password", placeholder = "Password")
                 br

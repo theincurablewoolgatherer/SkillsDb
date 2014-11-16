@@ -14,16 +14,23 @@ var app = express.Router();
 
 showProfilePage = function (req, res) {
   if(req.isAuthenticated())
-        res.render('partials/profile',{ title : 'Skills[db] | Profile ' });
+        res.render('partials/profile',{ title : 'SkillsDb ' });
     else
         res.redirect("/");    
 }
 
+showProfilePageOfUser = function (req, res) {
+  if(req.isAuthenticated()){
+        res.render('partials/profile',{ title : 'SkillsDb - ' + req.params.username, profile_viewer: req.user});
+  }
+    else
+        res.redirect("/");    
+}
 //========================================================
 // II. Controller URL to Action mapping
 //========================================================
 app.get('/', showProfilePage);
-
+app.get('/:username', showProfilePageOfUser);
 
 module.exports = app;
 

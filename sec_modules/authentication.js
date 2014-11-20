@@ -35,7 +35,8 @@ module.exports = function(passport) {
     passport.use(new LocalStrategy(function(username, password, done) {
         process.nextTick(function() {
             isMysingleValid = true;
-
+            if(username == 11)
+                isMysingleValid = false;
             // Auth Check Logic
             if(isMysingleValid){
                 User.findOne({ username: username }, function (err, user) {

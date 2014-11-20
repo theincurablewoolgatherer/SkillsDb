@@ -3,7 +3,7 @@ block content
     div#wrap
         div.container.profile
         
-            div.row(ng-controller = "ProfileCtrl")
+            div.row(ng-controller = "ProfileCtrl", ng-init = "profileOwnerUsername= #{profileOwnerUsername}")
                 div.col-lg-4.profile-panel
                     div.row
                         div.col-lg-12
@@ -17,23 +17,23 @@ block content
                                     div.col-lg-8
                                         div.about-name
                                             form(editable-form name='editableForm' onaftersave='save()')
-                                                span.fullname(editable-text='user.firstname' e-name='firstname' e-required) {{user.firstname}} {{user.lastname}} 
-                                                span(editable-text='user.lastname' e-name='lastname' e-required) 
+                                                span.fullname(editable-text='profileOwner.firstname' e-name='firstname' e-required) {{profileOwner.firstname}} {{profileOwner.lastname}} 
+                                                span(editable-text='profileOwner.lastname' e-name='lastname' e-required) 
                                                 span(showonhoverparent style='display:none')
-                                                    i.glyphicon.glyphicon-pencil.edit-glyph(ng-click='editableForm.$show()' ng-show='!editableForm.$visible')
+                                                    i.glyphicon.glyphicon-pencil.edit-glyph(ng-click='editableForm.$show()' ng-show='!editableForm.$visible && isViewingOwnProfile')
                                                 span(ng-show='editableForm.$visible')
                                                     button(class="circle-button" type='submit', ng-disabled='editableForm.$waiting')
                                                         span.glyphicon.glyphicon-ok
                                                     button(class="circle-button" type='button', ng-disabled='editableForm.$waiting', ng-click='editableForm.$cancel()')
                                                         span.glyphicon.glyphicon-remove
                                         div.about-rank
-                                            span(editable-select='rankId' e-ng-options='s.value as s.rank for s in ranks' onaftersave='saveRank()' e-form='positionForm') {{user.rank}} {{user.position}} 
+                                            span(editable-select='rankId' e-ng-options='s.value as s.rank for s in ranks' onaftersave='saveRank()' e-form='positionForm') {{profileOwner.rank}} {{profileOwner.position}} 
                                             span(showonhoverparent style='display:none')
-                                                i.glyphicon.glyphicon-pencil.edit-glyph(ng-click='positionForm.$show()' ng-hide='positionForm.$visible')
+                                                i.glyphicon.glyphicon-pencil.edit-glyph(ng-click='positionForm.$show()' ng-hide='positionForm.$visible || !isViewingOwnProfile')
                                         div.about-department
-                                            span(editable-select='user.department', e-ng-options='s.text as s.text for s in departments' onaftersave='save()' e-form='deptForm') {{ user.department }} 
+                                            span(editable-select='profileOwner.department', e-ng-options='s.text as s.text for s in departments' onaftersave='save()' e-form='deptForm') {{ profileOwner.department }} 
                                             span(showonhoverparent style='display:none')
-                                                    i.glyphicon.glyphicon-pencil.edit-glyph(ng-click='deptForm.$show()' ng-hide='deptForm.$visible')
+                                                    i.glyphicon.glyphicon-pencil.edit-glyph(ng-click='deptForm.$show()' ng-hide='deptForm.$visible || !isViewingOwnProfile')
                                         div.about-project 
                                             span.about-current-label.pull-left Current Project 
                                             span.about-current-value.pull-right KNOX Apps
@@ -44,24 +44,29 @@ block content
                                
                                 ul.list-group.top-skills
                                     li.list-group-item(ng-repeat="skill in topskills")
-                                        span.badge {{skill.project_count}}
+                                        span.badge {{skill.project_count}}x
                                         span.top-skill
                                             {{skill._id}}
                                         span.top-skill-days
                                             {{skill.project_days | milliSecondsToDays}} project exp
 
 
-                div.col-lg-8.project-panel(ng-controller="ProjectsCtrl",ng-init="collapse = true")
+                div.col-lg-8.project-panel(ng-controller="ProjectsCtrl", ng-init = "profileOwnerUsername= #{profileOwnerUsername}")
                     div.row
                         div.col-lg-10
-                            h2.panel-header Experience
+                            h2.panel-header Projects
+                        div.col-lg-2
+                            button.add-button(ng-click='showProjectForm()', ng-show='isViewingOwnProfile')
+                                span.add-plus +
+                                span.glyphicon.glyphicon-briefcase
+                                |    Add
                     div.row
                         div.col-lg-12.project-cards
                             // 2 column projects
-                            div.project-card.col-lg-12(ng-repeat="project in projects")
+                            div.project-card.col-lg-12(ng-repeat="project in projects", ng-mouseover="isprojecthover = true", ng-mouseleave="isprojecthover = false")
                                 div.col-md-2
                                     span.project-number {{$index+1 | leftpad}}
-                                div.col-md-9(ng-click='collapse=!collapse')
+                                div.col-md-9
                                     div.row
                                         span.project-name {{project.projectname}}
                                         span.project-date {{project.startdate | date:"MM/dd/yyyy"}} - {{project.enddate | date:"MM/dd/yyyy"}}
@@ -83,12 +88,6 @@ block content
                                     br
                                     div.row
                                         span.project-tag(ng-repeat="tag in project.tags") \#{{tag.tag}}
-
-                        
-                            div.col-lg-12
-                                button.add-button(ng-click="showProjectForm()")
-                                    h1
-                                        i.glyphicon.glyphicon-plus
-                                    
-                                    | Add Project Experience
-                                        
+                                div.col-md-1
+                                    span.glyphicon.glyphicon-pencil.project-button(ng-show="isprojecthover && isViewingOwnProfile", ng-click="editProject(project)")
+                                    span.glyphicon.glyphicon-remove.project-button(ng-show="isprojecthover && isViewingOwnProfile", ng-click="deleteProject(project)")

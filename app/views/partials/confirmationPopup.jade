@@ -1,0 +1,10 @@
+.modal-header
+   h4.modal-title Delete Project
+.modal-body()
+    | Permanently delete the project 
+    b {{project.projectname}}
+    | ?
+
+.modal-footer
+    button.btn.btn-primary(ng-click='ok()') OK
+    button.btn.btn-default(ng-click='cancel()') Cancel

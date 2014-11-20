@@ -19,15 +19,15 @@
             .form-group
               label.col-md-4.control-label(for='industry') Industry
               .col-md-7
-                select#Industry.form-control(name='industry', ng-model="project.industry")
-                  option(value='1') Semiconductor
-                  option(value='2') Utilities
-                  option(value='3') Banking
+                select#Industry.form-control.input-md(name='industry', ng-model="project.industry", required='')
+                  option(value='Semiconductor') Semiconductor
+                  option(value='Utilities') Utilities
+                  option(value='Banking') Banking
             .form-group 
               label.col-md-4.control-label(for='startdate') Start Date
               .col-md-7
                 p.input-group.datepicker
-                  input.form-control(type='text', name='startdate', placeholder='Start Date', datepicker-popup='yyyy/MM/dd', ng-model='project.startdate', is-open='opened1', min-date='minDate', max-date='\'2015-06-22\'', datepicker-options='dateOptions', date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
+                  input.form-control(type='text', name='startdate', placeholder='Start Date', disabled='', datepicker-popup='yyyy/MM/dd', ng-model='project.startdate', is-open='opened1', min-date='minDate', max-date='\'2015-06-22\'', datepicker-options='dateOptions', date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
                   span.input-group-btn
                     button.btn.btn-default(type='button', ng-click='open1($event)')
                       i.glyphicon.glyphicon-calendar
@@ -37,7 +37,7 @@
                label.col-md-4.control-label(for='enddate') End Date
                .col-md-7
                 p.input-group.datepicker
-                  input.form-control(type='text', name='enddate', placeholder='End Date', datepicker-popup='yyyy/MM/dd', ng-model='project.enddate', is-open='opened2', min-date='minDate', max-date='\'2015-06-22\'', datepicker-options='dateOptions', date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
+                  input.form-control(type='text', name='enddate', placeholder='End Date',disabled='',  datepicker-popup='yyyy/MM/dd', ng-model='project.enddate', is-open='opened2', min-date='minDate', max-date='\'2015-06-22\'', datepicker-options='dateOptions', date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
                   span.input-group-btn
                     button.btn.btn-default(type='button', ng-click='open2($event)')
                       i.glyphicon.glyphicon-calendar
@@ -46,13 +46,13 @@
             .form-group
               label.col-md-4.control-label(for='skills') Skills
               .col-lg-7
-                tags-input#skills(ng-model="project.skills", name="skills", display-property="skill", minTags="1", min-length=1, add-from-autocomplete-only="true", placeholder="i.e. Java, Android, MongoDB. etc.")
+                tags-input#skills(ng-model="project.skills", name="skills", display-property="skill", minTags="1", min-length=1, add-from-autocomplete-only="false", placeholder="i.e. Java, Android, MongoDB. etc.")
                     auto-complete(source = "loadSkills($query)", min-length = 1, load-on-down-arrow = "true", debounce-delay=10, max-results-to-show=5)
                 
             .form-group
               label.col-md-4.control-label(for='technologies') Technologies
               .col-lg-7
-                tags-input#technologies(ng-model="project.technologies", name="technologies", minTags="1", display-property="technology", min-length=1, add-from-autocomplete-only="true", placeholder="i.e. Machine Learning, Data Warehousing, etc.")
+                tags-input#technologies(ng-model="project.technologies", name="technologies", minTags="1", display-property="technology", min-length=1, add-from-autocomplete-only="false", placeholder="i.e. Machine Learning, Data Warehousing, etc.")
                     auto-complete(source = "loadTechnologies($query)", min-length = 1, load-on-down-arrow = "true", debounce-delay=10, max-results-to-show=5)
                 
             // Textarea 

@@ -8,18 +8,21 @@ html(ng-app = "skillsdb")
     link(rel='stylesheet', href='/stylesheets/xeditable.css')
     link(rel='stylesheet', href='/stylesheets/ngToast.min.css')
     link(rel='icon', type='image/png', href='/images/favicon.png')
+  block inlinecss
   body
     div.navbar_container
         nav.navbar.navbar-static-top.navbar-default(role="navigation")
             div.container
-                div.navbar-header
-                    a.navbar-brand(href="#") 
-                        img(src="/images/logo.png")
                 div.navbar-collapse.collapse.navbar-collapse
                     ul.nav.navbar-nav.navbar-right
                         li 
                            // a(href="#") Logout
-        block nav
+        nav.navbar.navbar-static-top.navbar-inverse.subnav(role="navigation")
+            div.container
+                div.navbar-header
+                        a.navbar-brand(href="#") 
+                            img(src="/images/logo.png")
+                block nav
     ng-toast
     block content
    

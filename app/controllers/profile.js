@@ -14,14 +14,14 @@ var app = express.Router();
 
 showProfilePage = function (req, res) {
   if(req.isAuthenticated())
-        res.render('partials/profile',{ title : 'SkillsDb ' });
+        res.render('partials/profile',{ title : 'SkillsDb ', profileOwnerUsername: req.user.username});
     else
         res.redirect("/");    
 }
 
 showProfilePageOfUser = function (req, res) {
   if(req.isAuthenticated()){
-        res.render('partials/profile',{ title : 'SkillsDb - ' + req.params.username, profile_viewer: req.user});
+        res.render('partials/profile',{ title : 'SkillsDb - ' + req.params.username, profileOwnerUsername: req.params.username});
   }
     else
         res.redirect("/");    

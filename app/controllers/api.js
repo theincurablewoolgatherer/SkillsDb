@@ -194,10 +194,16 @@ deleteProject = function(req, res) {
 }
 
 search = function(req, res) {
-  var keyword = req.body.query;
-   Project.find({
-            'skills':{ "$elemMatch" : {skill: keyword} }}
-          , function(err, projects){
+  var keyword = req.params.query;
+    Project.aggregate(
+          [{ $match: {
+             skills:{ "$elemMatch" : {skill:  { $regex : new RegExp(keyword, "i") } }} }
+          },
+          { $group : { _id : "$user", project_count : { $sum : 1 } , project_days: {$sum: {$subtract: ["$enddate", "$startdate"]}}} },
+          { $sort : { project_days : -1 } }
+
+
+          ], function(err, projects){
             if(err){
               res.statusCode = 500;
               return res.send({error: err});
@@ -206,8 +212,7 @@ search = function(req, res) {
               return res.json(projects);
             }
 
-  });
-
+          });
 }
 
 //========================================================
